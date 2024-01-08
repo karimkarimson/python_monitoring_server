@@ -37,6 +37,7 @@
   - { src: 'cpu_check', dest: '/usr/bin/cpu_check' }
   - { src: 'latency_check.service', dest: '/etc/systemd/system/latency_check.service' }
   - { src: 'cpu_check.service', dest: '/etc/systemd/system/cpu_check.service' }
+  - { src: 'flask_app.service', dest: '/etc/systemd/system/flask_app.service' }
 
 - name: start latency_check.service
   ansible.builtin.systemd_service:
@@ -54,6 +55,11 @@
     path: /home/ubuntu/myproject
     state: directory
     mode: '0755'
+- name: ensure file for server unit
+  ansible.builtin.file:
+    path: /tmp/flask_app.log
+    state: touch
+    mode: '0755'
 
 - name: Download flask app
   ansible.builtin.get_url:
@@ -69,6 +75,7 @@
     requirements: /home/ubuntu/myproject/requirements.txt
 
 - name: start flask app
-  shell: "flask run --host 0.0.0.0"
-  args:
-    chdir: /home/ubuntu/myproject
+  ansible.builtin.systemd_service:
+    state: started
+    name: flask_app.service
+    enabled: yes

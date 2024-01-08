@@ -1,0 +1,12 @@
+[Unit]
+Description=Flask App Service
+
+[Service]
+User=root
+ExecStartPre=/bin/bash -c 'echo "Starting Flask App at $(date)" >> /tmp/flask_app.log'
+WorkingDirectory=/home/ubuntu/myproject
+ExecStart=/usr/bin/flask run --host 0.0.0.0
+Restart=always
+
+[Install]
+WantedBy=default.target
