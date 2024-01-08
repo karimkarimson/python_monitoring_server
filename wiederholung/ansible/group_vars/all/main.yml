@@ -1,3 +1,4 @@
 ansible_user: ubuntu 
-ansible_ssh_private_key_file: /home/user/.ssh/keyname # Enter full path to SSH-Private-Key
+# ansible_ssh_private_key_file: /home/user/.ssh/keyname # Enter full path to SSH-Private-Key
+ansible_ssh_private_key_file: /etc/ansible/ssh-januar # Enter full path to SSH-Private-Key
 ansible_ssh_common_args: '-o StrictHostKeyChecking=no'

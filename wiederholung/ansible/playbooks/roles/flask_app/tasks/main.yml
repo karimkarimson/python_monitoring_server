@@ -56,12 +56,13 @@
     mode: '0755'
 
 - name: Download flask app
-  copy:
-    src: "files/{{ item.src }}"
+  ansible.builtin.get_url:
+    url: "{{ item.url }}"
     dest: "{{ item.dest }}"
-  with_items:
-  - { src: 'app.py', dest: '/home/ubuntu/myproject/app.py' }
-  - { src: 'requirements.txt', dest: '/home/ubuntu/myproject/requirements.txt'}
+    mode: "{{ item.mode }}"
+  with_items: 
+    - { url: 'https://raw.githubusercontent.com/karimkarimson/python_monitoring_server/main/wiederholung/myproject/app.py', dest: '/home/ubuntu/myproject/app.py', mode: '0755' }
+    - { url: 'https://raw.githubusercontent.com/karimkarimson/python_monitoring_server/main/wiederholung/myproject/requirements.txt', dest: '/home/ubuntu/myproject/requirements.txt', mode: '0644' }
 
 - name: Install specified python requirements
   ansible.builtin.pip:

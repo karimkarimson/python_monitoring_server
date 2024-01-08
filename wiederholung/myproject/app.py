@@ -11,13 +11,13 @@ file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 logger.setLevel(logging.DEBUG)
 def handleResponse(response):
-    response = (response.stdout.decode('utf-8').split("\n"))
+    response = response.split("\n")
     result = {}
     for i in response:
         i = str(i).strip()
         if i.startswith("Loaded") or i.startswith("Active"):
             result[i.split(":")[0]] = i.split(":")[1].strip().split(" ")[0]
-    return result
+    return json.dump(result)
 
 app = Flask(__name__)
 
