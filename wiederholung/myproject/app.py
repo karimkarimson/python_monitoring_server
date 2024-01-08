@@ -17,7 +17,7 @@ def handleResponse(response):
         i = str(i).strip()
         if i.startswith("Loaded") or i.startswith("Active"):
             result[i.split(":")[0]] = i.split(":")[1].strip().split(" ")[0]
-    return json.dump(result)
+    return json.dumps(result)
 
 app = Flask(__name__)
 
