@@ -1,0 +1,9 @@
+vpc_cidr = "10.0.0.0/16"
+vpc_tags = { Name = "TF_VPC" }
+pub_cidrs = ["10.0.0.0/24", "10.0.1.0/24"]
+
+ec2_instance_name = "flask"
+ec2_instance_type = "t2.micro"
+ec2_instance_ami = "ami-06dd92ecc74fdfb36" # ubuntu
+key_name = "ssh-key"
+

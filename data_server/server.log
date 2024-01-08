@@ -13,3 +13,13 @@
 2024-01-04 08:16:08,437 - server_logger - INFO - CPU_SERVICE Status: {'Loaded': 'loaded', 'Active': 'activating'}
 2024-01-04 08:16:09,048 - server_logger - INFO - CPU_SERVICE Status: {'Loaded': 'loaded', 'Active': 'activating'}
 2024-01-04 08:16:09,684 - server_logger - INFO - CPU_SERVICE Status: {'Loaded': 'loaded', 'Active': 'activating'}
+2024-01-04 08:39:11,294 - server_logger - INFO - LATENCY_CHECK_SERVICE Status: {}
+2024-01-04 08:40:25,079 - server_logger - INFO - LATENCY_CHECK_SERVICE Status: {}
+2024-01-04 08:42:26,604 - server_logger - INFO - LATENCY_CHECK_SERVICE Status: {}
+2024-01-04 08:42:53,002 - server_logger - INFO - LATENCY_CHECK_SERVICE Status: {}
+2024-01-04 08:43:20,161 - server_logger - INFO - LATENCY_CHECK_SERVICE Status: {}
+2024-01-04 08:43:53,289 - server_logger - INFO - LATENCY_CHECK_SERVICE Status: {}
+2024-01-04 08:44:00,673 - server_logger - INFO - LATENCY_CHECK_SERVICE Status: {}
+2024-01-04 08:44:41,925 - server_logger - INFO - LATENCY_CHECK_SERVICE Status: {}
+2024-01-04 08:44:46,120 - server_logger - INFO - LATENCY_CHECK_SERVICE Status: {}
+2024-01-04 08:45:06,542 - server_logger - INFO - LATENCY_CHECK_SERVICE Status: {}

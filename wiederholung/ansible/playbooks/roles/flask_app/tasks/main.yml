@@ -1,0 +1,73 @@
+---
+- name: Update all packages to their latest version
+  ansible.builtin.apt:
+    name: "*"
+    state: latest
+    update_cache: yes
+
+- name: install python packages
+  ansible.builtin.apt:
+    pkg:
+    - python3-pip 
+    - python3-flask
+
+- name: ensure folder for systemd unit
+  ansible.builtin.file:
+    path: /etc/systemd/system
+    state: directory
+
+- name: ensure folder for cpu unit
+  ansible.builtin.file:
+    path: /tmp/cpu_check.log
+    state: touch
+    mode: '0755'
+
+- name: ensure folder for latency unit
+  ansible.builtin.file:
+    path: /tmp/latency_check.log
+    state: touch
+    mode: '0755'
+
+- name: copy latency_check files 
+  copy:
+    src: "files/{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+  - { src: 'latency_check', dest: '/usr/bin/latency_check' }
+  - { src: 'cpu_check', dest: '/usr/bin/cpu_check' }
+  - { src: 'latency_check.service', dest: '/etc/systemd/system/latency_check.service' }
+  - { src: 'cpu_check.service', dest: '/etc/systemd/system/cpu_check.service' }
+
+- name: start latency_check.service
+  ansible.builtin.systemd_service:
+    state: started
+    name: latency_check.service
+    enabled: yes
+- name: start cpu_check.service
+  ansible.builtin.systemd_service:
+    state: started
+    name: cpu_check.service
+    enabled: yes
+
+- name: ensure folder for flask app
+  ansible.builtin.file:
+    path: /home/ubuntu/myproject
+    state: directory
+    mode: '0755'
+
+- name: Download flask app
+  copy:
+    src: "files/{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+  - { src: 'app.py', dest: '/home/ubuntu/myproject/app.py' }
+  - { src: 'requirements.txt', dest: '/home/ubuntu/myproject/requirements.txt'}
+
+- name: Install specified python requirements
+  ansible.builtin.pip:
+    requirements: /home/ubuntu/myproject/requirements.txt
+
+- name: start flask app
+  shell: "flask run --host 0.0.0.0"
+  args:
+    chdir: /home/ubuntu/myproject

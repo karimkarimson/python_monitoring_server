@@ -1,0 +1,12 @@
+[Unit]
+Description=CPU Service
+
+[Service]
+User=root
+ExecStartPre=/bin/bash -c 'echo "Starting CPU Check at $(date)" >> /tmp/cpu_check.log'
+ExecStart=/usr/bin/cpu_check
+Restart=always
+RestartSec=20
+
+[Install]
+WantedBy=default.target

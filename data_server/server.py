@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_testing import TestCase
 import subprocess
 import json
 import logging
@@ -29,6 +30,23 @@ def latency_check():
         return json.dumps({'latency_service': "inactive", "status": result })
     else:
         return json.dumps({'latency_service': "active", "status": result })
+@app.route('/service/latency_check/start', methods=['GET'])
+def latency_check_start():
+    start = subprocess.run(["systemctl", "--user", "start", "latency_check.service"], capture_output=True)
+    print(str(start.returncode))
+    start = (start.stdout.decode('utf-8').split("\n"))
+    print(str(start))
+    result = {}
+    for i in start:
+        i = str(i).strip()
+        print(str(i))
+        # if i.startswith("Loaded") or i.startswith("Active"):
+        #     result[i.split(":")[0]] = i.split(":")[1].strip().split(" ")[0]
+    logger.log(logging.INFO, "LATENCY_CHECK_SERVICE Status: " + str(result))
+    # if result["Active"] == "inactive":
+        # return json.dumps({'latency_service': "inactive", "status": result })
+    # else:
+    return json.dumps({'latency_service': "active", "status": result })
 
 @app.route('/service/cpu_idle', methods=['GET'])
 def cpu_idle():
